@@ -49,8 +49,12 @@
   <p>{{ role }}</p>
   <p>{{ accept }}</p>
   <p>{{ names }}</p>
-  <p>{{ skill }}</p>
-  <p>{{ skills }}</p>
+  <div v-for="skill in skills" :key="skill">
+    <p>
+      {{ skill }}
+      <span class="cross" @click="deleteSkill(skill)">&#x2718;</span>
+    </p>
+  </div>
 </template>
 
 <script>
@@ -72,6 +76,11 @@ export default {
         this.skills.push(this.skill);
         this.skill = "";
       }
+    },
+    deleteSkill(skill) {
+      this.skills = this.skills.filter((loopSkill) => {
+        return loopSkill != skill;
+      });
     },
   },
 };
@@ -118,5 +127,9 @@ input[type="checkbox"] {
   margin-right: 10px;
   position: relative;
   top: 2px;
+}
+.cross {
+  cursor: pointer;
+  color: darkred;
 }
 </style>
