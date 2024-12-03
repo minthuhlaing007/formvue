@@ -38,12 +38,19 @@
       <input type="checkbox" id="name3" value="hunnykyaw" v-model="names" />
       <label for="name3">hunny kyaw</label>
     </div>
+    <br /><br />
+    <div>
+      <label for="">Skill</label>
+      <input type="text" @keyup="addSkill" v-model="skill" />
+    </div>
   </form>
   <p>{{ email }}</p>
   <p>{{ password }}</p>
   <p>{{ role }}</p>
   <p>{{ accept }}</p>
   <p>{{ names }}</p>
+  <p>{{ skill }}</p>
+  <p>{{ skills }}</p>
 </template>
 
 <script>
@@ -55,7 +62,17 @@ export default {
       role: "",
       accept: false,
       names: [],
+      skills: [],
+      skill: "",
     };
+  },
+  methods: {
+    addSkill(e) {
+      if (e.key === "Enter") {
+        this.skills.push(this.skill);
+        this.skill = "";
+      }
+    },
   },
 };
 </script>
