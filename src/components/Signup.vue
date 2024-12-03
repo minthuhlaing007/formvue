@@ -72,7 +72,7 @@ export default {
   },
   methods: {
     addSkill(e) {
-      if (e.key === "Enter") {
+      if (e.key === "Enter" && this.skill) {
         this.skills.push(this.skill);
         this.skill = "";
       }
