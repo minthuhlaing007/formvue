@@ -1,10 +1,11 @@
 <template>
-  <form>
+  <form @submit.prevent="submit">
     <label for="">Email</label>
-    <input type="email" required v-model="email" />
+    <input type="email" v-model="email" />
     <br /><br />
     <label for="password">Password</label>
     <input type="password" v-model="password" />
+    <p v-if="errorMsg">{{ errorMsg }}</p>
     <br /><br />
     <label for="role">Roles:</label>
     <select v-model="role">
@@ -41,7 +42,11 @@
     <br /><br />
     <div>
       <label for="">Skill</label>
-      <input type="text" @keyup="addSkill" v-model="skill" />
+      <input type="text" @keyup.alt="addSkill" v-model="skill" />
+    </div>
+
+    <div class="align">
+      <button class="create">Create Account</button>
     </div>
   </form>
   <p>{{ email }}</p>
@@ -68,11 +73,12 @@ export default {
       names: [],
       skills: [],
       skill: "",
+      errorMsg:"",
     };
   },
   methods: {
     addSkill(e) {
-      if (e.key === "Enter" && this.skill) {
+      if (e.key === "," && this.skill) {
         this.skills.push(this.skill);
         this.skill = "";
       }
@@ -81,6 +87,11 @@ export default {
       this.skills = this.skills.filter((loopSkill) => {
         return loopSkill != skill;
       });
+    },
+    submit() {
+      if(this.password.length < 8){
+        this.errorMsg="Password Mush Be At Least 8 characters..."
+      }
     },
   },
 };
@@ -131,5 +142,15 @@ input[type="checkbox"] {
 .cross {
   cursor: pointer;
   color: darkred;
+}
+.create {
+  background: green;
+  padding: 8px;
+  color: white;
+  border-radius: 10px;
+  cursor:pointer
+}
+.align {
+  text-align: center;
 }
 </style>
